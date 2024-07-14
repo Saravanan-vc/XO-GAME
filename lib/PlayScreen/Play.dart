@@ -252,6 +252,27 @@ class _PlayscreenState extends State<Playscreen> {
         ),
       );
     }
+    if ((screen[3] == screen[4]) &&
+        (screen[4] == screen[5]) &&
+        screen[5] != "") {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("WINNER IS ${screen[4]}"),
+          content: Text("DO YOU WANT TO RESTART THE GAME"),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  setState(() {
+                    restart();
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text("YES"))
+          ],
+        ),
+      );
+    }
   }
 
   restart() {
