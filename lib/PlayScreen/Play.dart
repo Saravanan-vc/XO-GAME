@@ -27,7 +27,7 @@ class _PlayscreenState extends State<Playscreen> {
     "",
   ];
 
-  bool xo = false;
+  bool xo = true;
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +74,7 @@ class _PlayscreenState extends State<Playscreen> {
                 onPressed: () {
                   setState(() {
                     restart();
+                    xo = true;
                   });
                 },
                 icon: Icon(
@@ -96,7 +97,7 @@ class _PlayscreenState extends State<Playscreen> {
                     if (screen[Index] == "") {
                       setState(() {
                         xo = !xo;
-                        screen[Index] = xo ? "X" : "O";
+                        screen[Index] = xo ? "O" : "X";
                       });
                       check();
                     }
@@ -118,6 +119,16 @@ class _PlayscreenState extends State<Playscreen> {
               ),
             ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              xo
+                  ? Text('First player move',
+                      style: TextStyle(fontSize: 40, color: Colors.white))
+                  : Text("Second player move",
+                      style: TextStyle(fontSize: 40, color: Colors.white)),
+            ],
+          )
         ],
       ),
     );

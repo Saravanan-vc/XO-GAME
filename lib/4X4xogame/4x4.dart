@@ -31,7 +31,7 @@ class _player4x4State extends State<player4x4> {
     "",
     "",
   ];
-  bool xo = false;
+  bool xo = true;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -77,6 +77,7 @@ class _player4x4State extends State<player4x4> {
                 onPressed: () {
                   setState(() {
                     restart();
+                    xo = true;
                   });
                 },
                 icon: Icon(
@@ -99,7 +100,7 @@ class _player4x4State extends State<player4x4> {
                     if (screen[Index] == "") {
                       setState(() {
                         xo = !xo;
-                        screen[Index] = xo ? "X" : "O";
+                        screen[Index] = xo ? "O" : "X";
                       });
                       check();
                     }
@@ -123,6 +124,16 @@ class _player4x4State extends State<player4x4> {
               ),
             ),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              xo
+                  ? Text('First player move',
+                      style: TextStyle(fontSize: 40, color: Colors.white))
+                  : Text("Second player move",
+                      style: TextStyle(fontSize: 40, color: Colors.white)),
+            ],
+          )
         ],
       ),
     );
