@@ -1,20 +1,18 @@
-// ignore_for_file: prefer_const_constructors
-
-import 'dart:ui';
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:xogame/4X4xogame/4x4.dart';
+import 'package:xogame/PlayScreen/Play.dart';
 import 'package:xogame/info/infoScreen.dart';
 
-class Playscreen extends StatefulWidget {
-  const Playscreen({super.key});
+class player4x4 extends StatefulWidget {
+  const player4x4({super.key});
 
   @override
-  State<Playscreen> createState() => _PlayscreenState();
+  State<player4x4> createState() => _player4x4State();
 }
 
-class _PlayscreenState extends State<Playscreen> {
+class _player4x4State extends State<player4x4> {
   List screen = [
     "",
     "",
@@ -25,10 +23,15 @@ class _PlayscreenState extends State<Playscreen> {
     "",
     "",
     "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
   ];
-
   bool xo = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,12 +61,12 @@ class _PlayscreenState extends State<Playscreen> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => player4x4(),
+                      builder: (context) => Playscreen(),
                     ),
                   );
                 },
                 child: Text(
-                  "4x4",
+                  "3X3",
                   style: TextStyle(
                     fontSize: 24,
                     color: Colors.white,
@@ -87,7 +90,7 @@ class _PlayscreenState extends State<Playscreen> {
             child: GridView.builder(
               shrinkWrap: true,
               gridDelegate:
-                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
+                  SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
               itemCount: screen.length,
               itemBuilder: (context, Index) => Padding(
                 padding: const EdgeInsets.all(2.0),
@@ -100,6 +103,7 @@ class _PlayscreenState extends State<Playscreen> {
                       });
                       check();
                     }
+                    // print(screen[Index]);
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -109,6 +113,7 @@ class _PlayscreenState extends State<Playscreen> {
                     width: MediaQuery.of(context).size.width * 0.025,
                     child: Center(
                       child: Text(
+                        // "$Index",
                         screen[Index],
                         style: TextStyle(fontSize: 90, color: Colors.white),
                       ),
@@ -123,9 +128,32 @@ class _PlayscreenState extends State<Playscreen> {
     );
   }
 
+  restart() {
+    List again = [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+    ];
+    screen.clear();
+    screen.addAll(again);
+  }
+
   check() {
     if ((screen[0] == screen[1]) &&
-        (screen[1] == screen[2]) &&
+        (screen[2] == screen[3]) &&
         screen[0] != "") {
       showDialog(
         context: context,
@@ -145,8 +173,72 @@ class _PlayscreenState extends State<Playscreen> {
         ),
       );
     }
-    if ((screen[0] == screen[3]) &&
-        (screen[3] == screen[6]) &&
+    if ((screen[4] == screen[5]) &&
+        (screen[6] == screen[7]) &&
+        screen[4] != "") {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("WINNER IS ${screen[4]}"),
+          content: Text("DO YOU WANT TO RESTART THE GAME"),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  setState(() {
+                    restart();
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text("YES"))
+          ],
+        ),
+      );
+    }
+    if ((screen[8] == screen[9]) &&
+        (screen[10] == screen[11]) &&
+        screen[8] != "") {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("WINNER IS ${screen[8]}"),
+          content: Text("DO YOU WANT TO RESTART THE GAME"),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  setState(() {
+                    restart();
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text("YES"))
+          ],
+        ),
+      );
+    }
+    if ((screen[12] == screen[13]) &&
+        (screen[14] == screen[15]) &&
+        screen[12] != "") {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("WINNER IS ${screen[12]}"),
+          content: Text("DO YOU WANT TO RESTART THE GAME"),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  setState(() {
+                    restart();
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text("YES"))
+          ],
+        ),
+      );
+    }
+    //
+    if ((screen[0] == screen[4]) &&
+        (screen[8] == screen[12]) &&
         screen[0] != "") {
       showDialog(
         context: context,
@@ -166,118 +258,13 @@ class _PlayscreenState extends State<Playscreen> {
         ),
       );
     }
-    if ((screen[1] == screen[4]) &&
-        (screen[4] == screen[7]) &&
-        screen[1] != "") {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text("WINNER IS ${screen[0]}"),
-          content: Text("DO YOU WANT TO RESTART THE GAME"),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  setState(() {
-                    restart();
-                  });
-                  Navigator.pop(context);
-                },
-                child: Text("YES"))
-          ],
-        ),
-      );
-    }
-    if ((screen[6] == screen[7]) &&
-        (screen[7] == screen[8]) &&
-        screen[6] != "") {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text("WINNER IS ${screen[8]}"),
-          content: Text("DO YOU WANT TO RESTART THE GAME"),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  setState(() {
-                    restart();
-                  });
-                  Navigator.pop(context);
-                },
-                child: Text("YES"))
-          ],
-        ),
-      );
-    }
-    if ((screen[8] == screen[5]) &&
-        (screen[5] == screen[2]) &&
-        screen[8] != "") {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text("WINNER IS ${screen[8]}"),
-          content: Text("DO YOU WANT TO RESTART THE GAME"),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  setState(() {
-                    restart();
-                  });
-                  Navigator.pop(context);
-                },
-                child: Text("YES"))
-          ],
-        ),
-      );
-    }
-    if ((screen[8] == screen[4]) &&
-        (screen[4] == screen[0]) &&
-        screen[8] != "") {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text("WINNER IS ${screen[4]}"),
-          content: Text("DO YOU WANT TO RESTART THE GAME"),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  setState(() {
-                    restart();
-                  });
-                  Navigator.pop(context);
-                },
-                child: Text("YES"))
-          ],
-        ),
-      );
-    }
-    if ((screen[6] == screen[4]) &&
-        (screen[4] == screen[2]) &&
-        screen[6] != "") {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: Text("WINNER IS ${screen[4]}"),
-          content: Text("DO YOU WANT TO RESTART THE GAME"),
-          actions: [
-            TextButton(
-                onPressed: () {
-                  setState(() {
-                    restart();
-                  });
-                  Navigator.pop(context);
-                },
-                child: Text("YES"))
-          ],
-        ),
-      );
-    }
-    if ((screen[3] == screen[4]) &&
-        (screen[4] == screen[5]) &&
+    if ((screen[1] == screen[5]) &&
+        (screen[9] == screen[13]) &&
         screen[5] != "") {
       showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          title: Text("WINNER IS ${screen[4]}"),
+          title: Text("WINNER IS ${screen[5]}"),
           content: Text("DO YOU WANT TO RESTART THE GAME"),
           actions: [
             TextButton(
@@ -292,17 +279,90 @@ class _PlayscreenState extends State<Playscreen> {
         ),
       );
     }
-  }
-
-  restart() {
-    screen[0] = "";
-    screen[1] = "";
-    screen[2] = "";
-    screen[3] = "";
-    screen[4] = "";
-    screen[5] = "";
-    screen[6] = "";
-    screen[7] = "";
-    screen[8] = "";
+    if ((screen[2] == screen[6]) &&
+        (screen[10] == screen[14]) &&
+        screen[6] != "") {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("WINNER IS ${screen[6]}"),
+          content: Text("DO YOU WANT TO RESTART THE GAME"),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  setState(() {
+                    restart();
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text("YES"))
+          ],
+        ),
+      );
+    }
+    if ((screen[3] == screen[7]) &&
+        (screen[11] == screen[15]) &&
+        screen[11] != "") {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("WINNER IS ${screen[11]}"),
+          content: Text("DO YOU WANT TO RESTART THE GAME"),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  setState(() {
+                    restart();
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text("YES"))
+          ],
+        ),
+      );
+    }
+    //
+    if ((screen[0] == screen[5]) &&
+        (screen[10] == screen[15]) &&
+        screen[10] != "") {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("WINNER IS ${screen[10]}"),
+          content: Text("DO YOU WANT TO RESTART THE GAME"),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  setState(() {
+                    restart();
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text("YES"))
+          ],
+        ),
+      );
+    }
+    if ((screen[3] == screen[6]) &&
+        (screen[9] == screen[12]) &&
+        screen[6] != "") {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("WINNER IS ${screen[6]}"),
+          content: Text("DO YOU WANT TO RESTART THE GAME"),
+          actions: [
+            TextButton(
+                onPressed: () {
+                  setState(() {
+                    restart();
+                  });
+                  Navigator.pop(context);
+                },
+                child: Text("YES"))
+          ],
+        ),
+      );
+    }
   }
 }
